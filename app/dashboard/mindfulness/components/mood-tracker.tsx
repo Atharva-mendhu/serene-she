@@ -1,7 +1,7 @@
 "use client"
 
 import { Smile, Meh, Frown } from "lucide-react"
-import { Button } from "@/app/components/ui/button"
+import { Button } from "@/components/ui/button"
 
 interface MoodTrackerProps {
   preMoodScore: number | null

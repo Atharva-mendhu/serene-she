@@ -1,7 +1,7 @@
 "use client"
 
-import { Card } from "@/app/components/ui/card"
-import { Button } from "@/app/components/ui/button"
+import { Card } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
 import { Clock, Star } from "lucide-react"
 
 const FEATURED_ARTICLES = [

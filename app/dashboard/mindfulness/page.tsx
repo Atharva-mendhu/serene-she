@@ -1,11 +1,11 @@
 "use client"
 
 import { useState } from "react"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/app/components/ui/tabs"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { BreathingExercises } from "./components/breathing-exercises"
 import { DeskYoga } from "./components/desk-yoga"
 import { MoodTracker } from "./components/mood-tracker"
-import { Card } from "@/app/components/ui/card"
+import { Card } from "@/components/ui/card"
 
 export default function MindfulnessPage() {
   const [preMoodScore, setPreMoodScore] = useState<number | null>(null)
@@ -45,4 +45,5 @@ export default function MindfulnessPage() {
     </div>
   )
 }
+
 

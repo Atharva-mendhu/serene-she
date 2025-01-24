@@ -7,7 +7,7 @@ import { JournalCalendar } from "./components/journal-calendar"
 import { JournalEntry } from "@/lib/journal-types"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { motion } from "framer-motion"
-import { PageTransition } from "@/app/components/page-transition"
+import { PageTransition } from "@/components/page-transition"
 import { PenTool, Calendar, Book, Sparkles } from "lucide-react"
 
 const STORAGE_KEY = "journal_entries"
@@ -162,4 +162,5 @@ export default function JournalPage() {
     </PageTransition>
   )
 }
+
 

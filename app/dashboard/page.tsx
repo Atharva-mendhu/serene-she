@@ -1,108 +1,95 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Card } from "@/app/components/ui/card";
+import { Card } from "@/components/ui/card";
 import Link from "next/link";
 import {
   MessageCircle,
-  Brain,
-  PenTool,
   BookOpen,
-  Library,
+  Brain,
   Briefcase,
-  ArrowRight,
+  ClipboardList,
+  Library
 } from "lucide-react";
+import { PageTransition } from "@/components/page-transition";
 
 const features = [
   {
-    title: "Career Coaching",
-    description: "Explore career growth opportunities and get expert guidance",
-    icon: Briefcase,
-    path: "/dashboard/career",
-    color: "bg-purple-500/10 text-purple-500",
-  },
-  {
     title: "Chat with Serena",
-    description: "Get personalized AI support for your wellness journey",
+    description: "Get emotional support and guidance",
     icon: MessageCircle,
     path: "/dashboard/ai-support",
-    color: "bg-blue-500/10 text-blue-500",
+    color: "bg-pink-500",
+    textColor: "text-pink-500",
   },
   {
     title: "Journal",
-    description: "Express your thoughts and track your emotional well-being",
-    icon: PenTool,
+    description: "Document your thoughts and feelings",
+    icon: BookOpen,
     path: "/dashboard/journal",
-    color: "bg-pink-500/10 text-pink-500",
+    color: "bg-purple-500",
+    textColor: "text-purple-500",
   },
   {
     title: "Mindfulness",
-    description: "Practice meditation and mindfulness exercises",
+    description: "Practice meditation and breathing",
     icon: Brain,
     path: "/dashboard/mindfulness",
-    color: "bg-green-500/10 text-green-500",
+    color: "bg-blue-500",
+    textColor: "text-blue-500",
   },
   {
-    title: "Quiz",
-    description: "Assess your wellness and track your progress",
-    icon: BookOpen,
+    title: "Career Coaching",
+    description: "Get guidance for your career",
+    icon: Briefcase,
+    path: "/dashboard/career",
+    color: "bg-green-500",
+    textColor: "text-green-500",
+  },
+  {
+    title: "Wellness Quiz",
+    description: "Assess your mental wellbeing",
+    icon: ClipboardList,
     path: "/dashboard/quiz",
-    color: "bg-yellow-500/10 text-yellow-500",
+    color: "bg-yellow-500",
+    textColor: "text-yellow-500",
   },
   {
     title: "Resources",
-    description: "Access helpful articles, guides, and tools",
+    description: "Access helpful articles and tools",
     icon: Library,
     path: "/dashboard/resources",
-    color: "bg-red-500/10 text-red-500",
+    color: "bg-red-500",
+    textColor: "text-red-500",
   },
 ];
 
 export default function DashboardPage() {
   return (
-    <div className="container mx-auto px-4 py-8">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="space-y-8"
-      >
-        <div className="space-y-2">
-          <h1 className="text-3xl font-bold">Welcome to SereneShe</h1>
-          <p className="text-muted-foreground">
-            Your personal space for wellness, growth, and empowerment
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {features.map((feature, index) => (
-            <motion.div
-              key={feature.path}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-            >
-              <Link href={feature.path}>
-                <Card className="p-6 hover:shadow-lg transition-all cursor-pointer group">
-                  <div className="space-y-4">
-                    <div className={`p-3 w-fit rounded-full ${feature.color}`}>
-                      <feature.icon className="h-6 w-6" />
-                    </div>
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between">
-                        <h2 className="text-xl font-semibold">{feature.title}</h2>
-                        <ArrowRight className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
-                      </div>
-                      <p className="text-muted-foreground">{feature.description}</p>
-                    </div>
+    <PageTransition>
+      <div className="grid gap-6 p-6">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {features.map((feature) => (
+            <Link key={feature.path} href={feature.path}>
+              <Card className="p-6 hover:bg-muted/50 transition-colors cursor-pointer">
+                <div className="flex items-center gap-4">
+                  <div className={`p-2 rounded-lg ${feature.color}`}>
+                    <feature.icon className="w-5 h-5 text-white" />
                   </div>
-                </Card>
-              </Link>
-            </motion.div>
+                  <div>
+                    <h3 className="font-medium">{feature.title}</h3>
+                    <p className="text-sm text-muted-foreground">
+                      {feature.description}
+                    </p>
+                  </div>
+                </div>
+              </Card>
+            </Link>
           ))}
         </div>
-      </motion.div>
-    </div>
+      </div>
+    </PageTransition>
   );
 }
+
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { Card } from "@/app/components/ui/card";
+import { Card } from "@/components/ui/card";
 import {
   Book,
   Headphones,

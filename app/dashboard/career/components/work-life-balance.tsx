@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Card } from "@/app/components/ui/card";
-import { Progress } from "@/app/components/ui/progress";
+import { Card } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
 import {
   Clock,
   Battery,

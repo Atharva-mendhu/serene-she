@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { Flame, Coins } from "lucide-react"
-import { Card } from "@/app/components/ui/card"
+import { Card } from "@/components/ui/card"
 import { CoinsNotification } from "./coins-notification"
 import { UserPoints, handleDailyLogin } from "@/app/lib/points-system"
 

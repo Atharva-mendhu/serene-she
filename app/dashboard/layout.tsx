@@ -1,4 +1,4 @@
-import { NavigationBar } from "@/app/components/navigation-bar"
+import { NavigationBar } from "@/components/navigation-bar"
 
 export default function DashboardLayout({
   children,

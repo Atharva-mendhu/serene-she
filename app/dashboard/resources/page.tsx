@@ -2,10 +2,10 @@
 
 import { useState } from "react"
 import { Search, BookOpen, Briefcase, DollarSign, Brain } from "lucide-react"
-import { Card } from "@/app/components/ui/card"
-import { Button } from "@/app/components/ui/button"
-import { Input } from "@/app/components/ui/input"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/app/components/ui/tabs"
+import { Card } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ArticleGrid } from "./components/article-grid"
 import { FeaturedArticles } from "./components/featured-articles"
 
@@ -118,4 +118,5 @@ export default function ResourcesPage() {
     </div>
   )
 }
+
 

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { PageTransition } from "@/app/components/page-transition";
+import { PageTransition } from "@/components/page-transition";
 import { MessageCircle, Bot, Sparkles, X } from "lucide-react";
 import { ChatInterface } from "./components/chat-interface";
 
@@ -142,4 +142,5 @@ export default function AiSupportPage() {
     </PageTransition>
   );
 }
+
 

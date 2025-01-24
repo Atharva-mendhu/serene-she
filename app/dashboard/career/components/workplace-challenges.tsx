@@ -1,6 +1,6 @@
 "use client";
 
-import { Card } from "@/app/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Search, BookOpen, MessageSquare, Award, ArrowRight } from "lucide-react";
 
 const challengeCategories = [
