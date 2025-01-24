@@ -9,7 +9,8 @@ import {
   BookOpen,
   Brain,
   PenTool,
-  Library
+  Library,
+  Briefcase
 } from "lucide-react"
 
 const navItems = [
@@ -17,6 +18,11 @@ const navItems = [
     path: "/dashboard",
     label: "Home",
     icon: Home
+  },
+  {
+    path: "/dashboard/career",
+    label: "Career",
+    icon: Briefcase
   },
   {
     path: "/dashboard/ai-support",
@@ -49,47 +55,58 @@ export function NavigationBar() {
   const pathname = usePathname()
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t bg-background/80 backdrop-blur-lg">
+    <motion.nav 
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      className="fixed top-0 left-0 right-0 z-50 border-b bg-background/95 backdrop-blur-lg shadow-sm"
+    >
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-around py-2">
-          {navItems.map((item) => {
-            const isActive = pathname === item.path
-            return (
-              <Link
-                key={item.path}
-                href={item.path}
-                className="relative px-3 py-2"
-              >
-                <div className="flex flex-col items-center gap-1">
-                  <span className="relative">
+        <div className="flex items-center justify-between h-16">
+          <Link href="/" className="flex items-center space-x-2">
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ type: "spring", stiffness: 200, damping: 10 }}
+              className="font-bold text-xl text-primary"
+            >
+              SereneShe
+            </motion.div>
+          </Link>
+          
+          <div className="flex items-center space-x-6">
+            {navItems.map((item) => {
+              const isActive = pathname === item.path
+              return (
+                <Link
+                  key={item.path}
+                  href={item.path}
+                >
+                  <motion.div
+                    className="flex items-center space-x-1 px-3 py-2 rounded-md hover:bg-muted transition-colors"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
                     <item.icon
-                      className={`h-5 w-5 transition-colors ${
+                      className={`h-5 w-5 ${
                         isActive ? "text-primary" : "text-muted-foreground"
                       }`}
                     />
-                    {isActive && (
-                      <motion.div
-                        layoutId="navbar-indicator"
-                        className="absolute -bottom-4 left-1/2 h-1 w-8 -translate-x-1/2 rounded-full bg-primary"
-                        transition={{ type: "spring", bounce: 0.25, duration: 0.5 }}
-                      />
-                    )}
-                  </span>
-                  <span
-                    className={`text-xs transition-colors ${
-                      isActive
-                        ? "font-medium text-primary"
-                        : "text-muted-foreground"
-                    }`}
-                  >
-                    {item.label}
-                  </span>
-                </div>
-              </Link>
-            )
-          })}
+                    <span
+                      className={`hidden md:inline-block text-sm ${
+                        isActive
+                          ? "font-medium text-primary"
+                          : "text-muted-foreground"
+                      }`}
+                    >
+                      {item.label}
+                    </span>
+                  </motion.div>
+                </Link>
+              )
+            })}
+          </div>
         </div>
       </div>
-    </nav>
+    </motion.nav>
   )
 } 

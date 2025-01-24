@@ -1,56 +1,53 @@
 "use client"
 
-import { Target, Trophy } from "lucide-react"
-import { Card } from "@/components/ui/card"
-import { Progress } from "@/components/ui/progress"
-import { UserPoints } from "@/lib/points-system"
+import { motion } from "framer-motion"
+import { Trophy } from "lucide-react"
+import { POINTS_REWARDS } from "@/lib/points-system"
 
-interface ChallengeDisplayProps {
-  points: UserPoints
+interface Challenge {
+  id: string
+  title: string
+  description: string
+  completed: boolean
 }
 
-export function ChallengeDisplay({ points }: ChallengeDisplayProps) {
-  if (!points.activeChallenge) {
-    return null
-  }
+interface ChallengeDisplayProps {
+  challenges: Challenge[]
+  onComplete: (id: string) => void
+}
 
-  const { activeChallenge } = points
-  const progress = (activeChallenge.progress / activeChallenge.requirement) * 100
-
+export function ChallengeDisplay({ challenges, onComplete }: ChallengeDisplayProps) {
   return (
-    <Card className="p-4 bg-muted/50">
-      <div className="flex items-start gap-4">
-        <div className="bg-primary/10 p-2 rounded-lg">
-          <Target className="h-5 w-5 text-primary" />
-        </div>
-
-        <div className="flex-1 space-y-2">
-          <div className="flex justify-between items-start">
-            <div>
-              <h4 className="font-medium">{activeChallenge.title}</h4>
-              <p className="text-sm text-muted-foreground">
-                {activeChallenge.description}
-              </p>
-            </div>
-            <div className="flex items-center gap-1 text-yellow-500">
-              <Trophy className="h-4 w-4" />
-              <span className="text-sm font-medium">
-                {activeChallenge.reward} SP
-              </span>
-            </div>
-          </div>
-
-          <div className="space-y-1">
-            <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Progress</span>
-              <span>
-                {activeChallenge.progress} / {activeChallenge.requirement}
-              </span>
-            </div>
-            <Progress value={progress} className="h-2" />
-          </div>
-        </div>
+    <div className="space-y-4">
+      <div className="flex items-center gap-2">
+        <Trophy className="w-5 h-5 text-primary" />
+        <h3 className="font-medium">Daily Challenges</h3>
       </div>
-    </Card>
+      <div className="grid gap-3">
+        {challenges.map((challenge) => (
+          <motion.div
+            key={challenge.id}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className={`p-3 rounded-lg border ${
+              challenge.completed ? "bg-primary/5" : "hover:bg-muted/50"
+            }`}
+            onClick={() => !challenge.completed && onComplete(challenge.id)}
+          >
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="font-medium">{challenge.title}</p>
+                <p className="text-sm text-muted-foreground">
+                  {challenge.description}
+                </p>
+              </div>
+              <div className="text-xs font-medium">
+                +{POINTS_REWARDS.COMPLETE_CHALLENGE} points
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </div>
   )
 } 

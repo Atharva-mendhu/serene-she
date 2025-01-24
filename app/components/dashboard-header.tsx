@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from "react"
 import { Flame, Coins } from "lucide-react"
-import { Card } from "@/components/ui/card"
-import { CoinsNotification } from "../../components/coins-notification"
-import { UserPoints, handleDailyLogin, initializePoints } from "../../lib/points-system"
+import { Card } from "@/app/components/ui/card"
+import { CoinsNotification } from "./coins-notification"
+import { UserPoints, handleDailyLogin } from "@/app/lib/points-system"
 
 export function DashboardHeader() {
   const [points, setPoints] = useState<UserPoints | null>(null)
@@ -14,7 +14,7 @@ export function DashboardHeader() {
 
   useEffect(() => {
     const storedPoints = localStorage.getItem("userPoints")
-    let userPoints = storedPoints ? JSON.parse(storedPoints) : initializePoints()
+    let userPoints = storedPoints ? JSON.parse(storedPoints) : null
 
     if (userPoints) {
       const { updatedPoints, coinsEarned, newStreak } = handleDailyLogin(userPoints)
@@ -24,7 +24,6 @@ export function DashboardHeader() {
         setShowCoinsNotification(true)
       }
       userPoints = updatedPoints
-      localStorage.setItem("userPoints", JSON.stringify(userPoints))
     }
 
     setPoints(userPoints)
@@ -58,5 +57,4 @@ export function DashboardHeader() {
       />
     </div>
   )
-}
-
+} 

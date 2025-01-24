@@ -1,125 +1,120 @@
 "use client"
 
 import { useState } from "react"
-import { motion } from "framer-motion"
-import { Search } from 'lucide-react'
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { HomeButton } from "../components/home-button"
+import { Search, BookOpen, Briefcase, DollarSign, Brain } from "lucide-react"
+import { Card } from "@/app/components/ui/card"
+import { Button } from "@/app/components/ui/button"
+import { Input } from "@/app/components/ui/input"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/app/components/ui/tabs"
+import { ArticleGrid } from "./components/article-grid"
+import { FeaturedArticles } from "./components/featured-articles"
 
-const resources = [
+const CATEGORIES = [
   {
-    id: 1,
-    title: "Understanding Workplace Stress",
-    description: "Learn about the causes and effects of workplace stress, and strategies to manage it effectively.",
-    category: "Stress Management",
-    link: "#",
+    id: "workplace",
+    name: "Workplace Ethics & Rights",
+    icon: Briefcase,
+    color: "text-purple-500",
   },
   {
-    id: 2,
-    title: "Effective Time Management Techniques",
-    description: "Discover proven methods to improve your productivity and reduce stress through better time management.",
-    category: "Productivity",
-    link: "#",
+    id: "stress",
+    name: "Stress Management",
+    icon: Brain,
+    color: "text-teal-500",
   },
   {
-    id: 3,
-    title: "Mindfulness in the Workplace",
-    description: "Explore how mindfulness practices can improve your focus, reduce stress, and enhance overall well-being at work.",
-    category: "Mindfulness",
-    link: "#",
+    id: "finance",
+    name: "Financial Tips",
+    icon: DollarSign,
+    color: "text-emerald-500",
   },
   {
-    id: 4,
-    title: "Navigating Workplace Relationships",
-    description: "Learn strategies for building positive relationships with colleagues and managing conflicts professionally.",
-    category: "Workplace Relationships",
-    link: "#",
+    id: "wellness",
+    name: "Mental Health & Wellness",
+    icon: BookOpen,
+    color: "text-pink-500",
   },
-  {
-    id: 5,
-    title: "Financial Wellness for Professionals",
-    description: "Understand the basics of personal finance and learn how to manage your money effectively for long-term success.",
-    category: "Financial Wellness",
-    link: "#",
-  },
-  // Add more resources as needed
 ]
 
-export default function EducationalResourcesPage() {
-  const [searchTerm, setSearchTerm] = useState("")
-  const [activeTab, setActiveTab] = useState("all")
-
-  const filteredResources = resources.filter((resource) =>
-    resource.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
-    (activeTab === "all" || resource.category.toLowerCase() === activeTab)
-  )
-
-  const categories = ["all", ...new Set(resources.map((r) => r.category.toLowerCase()))]
+export default function ResourcesPage() {
+  const [searchQuery, setSearchQuery] = useState("")
+  const [selectedCategory, setSelectedCategory] = useState("workplace")
+  const [sortBy, setSortBy] = useState<"date" | "popular">("date")
 
   return (
-    <div className="container mx-auto px-4 py-6">
-      <HomeButton />
-      <h1 className="text-3xl font-bold mb-6">Educational Resources</h1>
-      <div className="mb-6">
-        <div className="relative">
-          <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-          <Input
-            placeholder="Search resources..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-8"
-          />
+    <div className="container mx-auto px-4 py-8 pb-24">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-purple-400 via-pink-400 to-teal-400 bg-clip-text text-transparent">
+            Educational Resources
+          </h1>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            Explore our curated collection of articles and resources designed to empower and support you in your personal and professional journey.
+          </p>
         </div>
-      </div>
-      <Tabs defaultValue="all" className="mb-6">
-        <TabsList>
-          {categories.map((category) => (
-            <TabsTrigger
-              key={category}
-              value={category}
-              onClick={() => setActiveTab(category)}
+
+        <div className="mb-8">
+          <FeaturedArticles />
+        </div>
+
+        <div className="flex flex-col md:flex-row gap-4 mb-8">
+          <div className="relative flex-1">
+            <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+            <Input
+              placeholder="Search articles..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-10"
+            />
+          </div>
+          <div className="flex gap-2">
+            <Button
+              variant={sortBy === "date" ? "default" : "outline"}
+              onClick={() => setSortBy("date")}
             >
-              {category.charAt(0).toUpperCase() + category.slice(1)}
-            </TabsTrigger>
+              Latest
+            </Button>
+            <Button
+              variant={sortBy === "popular" ? "default" : "outline"}
+              onClick={() => setSortBy("popular")}
+            >
+              Most Popular
+            </Button>
+          </div>
+        </div>
+
+        <Tabs value={selectedCategory} onValueChange={setSelectedCategory}>
+          <TabsList className="grid grid-cols-2 md:grid-cols-4 mb-8">
+            {CATEGORIES.map(({ id, name, icon: Icon, color }) => (
+              <TabsTrigger
+                key={id}
+                value={id}
+                className="flex items-center gap-2 py-4"
+              >
+                <Icon className={`h-4 w-4 ${color}`} />
+                <span className="hidden md:inline">{name}</span>
+                <span className="md:hidden">{name.split(" ")[0]}</span>
+              </TabsTrigger>
+            ))}
+          </TabsList>
+
+          {CATEGORIES.map(({ id, name }) => (
+            <TabsContent key={id} value={id}>
+              <div className="mb-6">
+                <h2 className="text-2xl font-semibold mb-2">{name}</h2>
+                <p className="text-muted-foreground">
+                  Explore our curated articles and resources about {name.toLowerCase()}.
+                </p>
+              </div>
+              <ArticleGrid
+                category={id}
+                searchQuery={searchQuery}
+                sortBy={sortBy}
+              />
+            </TabsContent>
           ))}
-        </TabsList>
-      </Tabs>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-        className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
-      >
-        {filteredResources.map((resource) => (
-          <motion.div
-            key={resource.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <Card>
-              <CardHeader>
-                <CardTitle>{resource.title}</CardTitle>
-                <CardDescription>{resource.category}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground mb-4">{resource.description}</p>
-                <Button asChild>
-                  <a href={resource.link} target="_blank" rel="noopener noreferrer">
-                    Read More
-                  </a>
-                </Button>
-              </CardContent>
-            </Card>
-          </motion.div>
-        ))}
-      </motion.div>
-      {filteredResources.length === 0 && (
-        <p className="text-center text-muted-foreground">No resources found matching your search criteria.</p>
-      )}
+        </Tabs>
+      </div>
     </div>
   )
 }

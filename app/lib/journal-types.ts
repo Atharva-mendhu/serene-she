@@ -1,114 +1,80 @@
-export type Mood = "happy" | "calm" | "sad" | "angry" | "anxious" | "tired"
+export type Mood = 1 | 2 | 3 | 4 | 5
 
 export interface JournalEntry {
   id: string
-  date: string
-  mood: Mood
+  title: string
   content: string
-  tags: string[]
-}
-
-export interface MoodAnalytics {
   mood: Mood
-  count: number
-  percentage: number
+  tags: string[]
+  createdAt: string
+  updatedAt: string
 }
 
-export interface JournalAnalytics {
-  totalEntries: number
-  moodDistribution: MoodAnalytics[]
-  mostFrequentMood: Mood
-  mostFrequentTags: string[]
-  streakDays: number
-}
-
-// Helper function to get mood emoji
 export function getMoodEmoji(mood: Mood): string {
-  const moodEmojis: Record<Mood, string> = {
-    happy: "😊",
-    calm: "😌",
-    sad: "😔",
-    angry: "😤",
-    anxious: "😰",
-    tired: "😴"
+  const emojis: Record<Mood, string> = {
+    1: "😢",
+    2: "😕",
+    3: "😐",
+    4: "🙂",
+    5: "😊"
   }
-  return moodEmojis[mood]
+  return emojis[mood]
 }
 
-// Helper function to get mood color
-export function getMoodColor(mood: Mood): string {
-  const moodColors: Record<Mood, { light: string; dark: string }> = {
-    happy: { light: "bg-green-100", dark: "dark:bg-green-900" },
-    calm: { light: "bg-blue-100", dark: "dark:bg-blue-900" },
-    sad: { light: "bg-purple-100", dark: "dark:bg-purple-900" },
-    angry: { light: "bg-red-100", dark: "dark:bg-red-900" },
-    anxious: { light: "bg-yellow-100", dark: "dark:bg-yellow-900" },
-    tired: { light: "bg-gray-100", dark: "dark:bg-gray-900" }
+export function getMoodLabel(mood: Mood): string {
+  const labels: Record<Mood, string> = {
+    1: "Very Low",
+    2: "Low",
+    3: "Neutral",
+    4: "Good",
+    5: "Excellent"
   }
-  return `${moodColors[mood].light} ${moodColors[mood].dark}`
+  return labels[mood]
 }
 
-// Function to calculate analytics from journal entries
-export function calculateAnalytics(entries: JournalEntry[]): JournalAnalytics {
-  // Count total entries
-  const totalEntries = entries.length
-
-  // Calculate mood distribution
-  const moodCounts = entries.reduce((acc, entry) => {
-    acc[entry.mood] = (acc[entry.mood] || 0) + 1
-    return acc
-  }, {} as Record<Mood, number>)
-
-  const moodDistribution: MoodAnalytics[] = Object.entries(moodCounts).map(([mood, count]) => ({
-    mood: mood as Mood,
-    count,
-    percentage: (count / totalEntries) * 100
-  }))
-
-  // Find most frequent mood
-  const mostFrequentMood = moodDistribution.reduce((a, b) => 
-    a.count > b.count ? a : b
-  ).mood
-
-  // Calculate most frequent tags
-  const tagCounts = entries.reduce((acc, entry) => {
-    entry.tags.forEach(tag => {
-      acc[tag] = (acc[tag] || 0) + 1
-    })
-    return acc
-  }, {} as Record<string, number>)
-
-  const mostFrequentTags = Object.entries(tagCounts)
-    .sort(([,a], [,b]) => b - a)
-    .slice(0, 5)
-    .map(([tag]) => tag)
-
-  // Calculate streak
-  const sortedDates = entries
-    .map(entry => new Date(entry.date).toISOString().split('T')[0])
-    .sort()
-    .reverse()
-
-  let streakDays = 1
-  const today = new Date().toISOString().split('T')[0]
-  if (sortedDates[0] === today) {
-    for (let i = 1; i < sortedDates.length; i++) {
-      const currentDate = new Date(sortedDates[i-1])
-      const prevDate = new Date(sortedDates[i])
-      const diffDays = Math.floor((currentDate.getTime() - prevDate.getTime()) / (1000 * 60 * 60 * 24))
-      if (diffDays === 1) {
-        streakDays++
-      } else {
-        break
-      }
+export function calculateAnalytics(entries: JournalEntry[]) {
+  if (!entries.length) {
+    return {
+      averageMood: 0,
+      moodCounts: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 },
+      moodTrend: [],
+      commonTags: []
     }
   }
 
+  // Calculate mood counts and average
+  const moodCounts: Record<Mood, number> = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 }
+  let moodSum = 0
+  entries.forEach(entry => {
+    moodCounts[entry.mood]++
+    moodSum += entry.mood
+  })
+
+  // Calculate mood trend (last 7 entries)
+  const moodTrend = entries
+    .slice(-7)
+    .map(entry => ({
+      date: entry.createdAt.split('T')[0],
+      mood: entry.mood
+    }))
+
+  // Calculate common tags
+  const tagCounts: Record<string, number> = {}
+  entries.forEach(entry => {
+    entry.tags.forEach(tag => {
+      tagCounts[tag] = (tagCounts[tag] || 0) + 1
+    })
+  })
+
+  const commonTags = Object.entries(tagCounts)
+    .map(([tag, count]) => ({ tag, count }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 5)
+
   return {
-    totalEntries,
-    moodDistribution,
-    mostFrequentMood,
-    mostFrequentTags,
-    streakDays
+    averageMood: moodSum / entries.length,
+    moodCounts,
+    moodTrend,
+    commonTags
   }
 } 

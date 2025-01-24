@@ -1,50 +1,41 @@
 "use client"
 
 import { useState } from "react"
-import { getAIResponse } from "@/lib/ai-config"
 
 interface Message {
-  content: string
-  role: "user" | "assistant"
+  id: string;
+  content: string;
+  role: "user" | "assistant";
+  timestamp: Date;
 }
 
-interface UseChatProps {
-  initialMessage: Message
-}
+const INITIAL_MESSAGE: Message = {
+  id: "welcome",
+  role: "assistant",
+  content: "Namaste! 🙏 I'm Serena, your wellness companion. I blend modern guidance with the timeless wisdom of Indian traditions. How may I support you today? ✨",
+  timestamp: new Date(),
+};
 
-export function useChat({ initialMessage }: UseChatProps) {
-  const [messages, setMessages] = useState<Message[]>([initialMessage])
-  const [isLoading, setIsLoading] = useState(false)
+export function useChat() {
+  const [messages, setMessages] = useState<Message[]>([INITIAL_MESSAGE])
 
-  const sendMessage = async (content: string) => {
-    setIsLoading(true)
-    
-    // Add user message
-    const userMessage: Message = { role: "user", content }
-    setMessages(prev => [...prev, userMessage])
-
-    try {
-      // Get AI response using our configured model
-      const response = await getAIResponse(content)
-      
-      const aiMessage: Message = { role: "assistant", content: response }
-      setMessages(prev => [...prev, aiMessage])
-    } catch (error) {
-      console.error("Failed to get AI response:", error)
-      // Add a friendly error message
-      const errorMessage: Message = {
-        role: "assistant",
-        content: "I apologize, but I'm having trouble responding right now. Could you try rephrasing your message?"
-      }
-      setMessages(prev => [...prev, errorMessage])
-    } finally {
-      setIsLoading(false)
+  const addMessage = (content: string, role: "user" | "assistant") => {
+    const newMessage: Message = {
+      id: Date.now().toString(),
+      content,
+      role,
+      timestamp: new Date(),
     }
+    setMessages((prev) => [...prev, newMessage])
+  }
+
+  const clearMessages = () => {
+    setMessages([INITIAL_MESSAGE])
   }
 
   return {
     messages,
-    sendMessage,
-    isLoading,
+    addMessage,
+    clearMessages,
   }
 } 

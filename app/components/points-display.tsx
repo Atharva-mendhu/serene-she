@@ -1,30 +1,29 @@
 "use client"
 
+import { motion } from "framer-motion"
 import { Star } from "lucide-react"
-import { Progress } from "@/components/ui/progress"
-import { UserPoints, getLevelProgress, LEVEL_TITLES } from "@/lib/points-system"
+import { PointsData } from "@/lib/points-system"
 
 interface PointsDisplayProps {
-  points: UserPoints
+  points: PointsData
 }
 
 export function PointsDisplay({ points }: PointsDisplayProps) {
-  const progress = getLevelProgress(points.totalPoints)
-  const levelTitle = LEVEL_TITLES[points.level - 1]
-
   return (
-    <div className="flex items-center gap-4">
-      <div className="flex items-center gap-2">
-        <Star className="h-4 w-4 text-yellow-500" />
-        <span className="text-sm font-medium">Level {points.level}</span>
-      </div>
-      <div className="flex-1 max-w-[200px]">
-        <div className="flex justify-between text-xs text-muted-foreground mb-1">
-          <span>{levelTitle}</span>
-          <span>{progress.current}/{progress.next} SP</span>
-        </div>
-        <Progress value={progress.progress} className="h-2" />
-      </div>
-    </div>
+    <motion.div 
+      className="flex items-center gap-2 bg-primary/10 px-3 py-1.5 rounded-full"
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+    >
+      <Star className="w-4 h-4 text-yellow-500" />
+      <span className="text-sm font-medium">
+        {points.totalPoints} points
+      </span>
+      {points.streak > 0 && (
+        <span className="text-xs text-muted-foreground">
+          🔥 {points.streak} day streak
+        </span>
+      )}
+    </motion.div>
   )
 } 

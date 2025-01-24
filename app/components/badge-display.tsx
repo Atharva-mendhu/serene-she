@@ -10,7 +10,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Badge, BadgeCategory, RARITY_COLORS, getBadgesByCategory } from "@/lib/badge-system"
+import { Badge, BadgeCategory, RARITY_COLORS, getBadgesByCategory } from "../lib/badge-system"
 
 interface BadgeDisplayProps {
   badges: Badge[]
@@ -54,7 +54,7 @@ export function BadgeDisplay({ badges }: BadgeDisplayProps) {
               className="border rounded-lg mt-4"
             >
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4 p-4">
-                {categoryBadges.map((badge) => (
+                {(categoryBadges as Badge[]).map((badge: Badge) => (
                   <div
                     key={badge.id}
                     className={`relative p-4 rounded-lg border ${
