@@ -38,3 +38,4 @@ export function formatMessage(message: Message): Message {
     timestamp: message.timestamp || new Date().toISOString()
   }
 } 
+

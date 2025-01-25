@@ -193,3 +193,4 @@ export function DeskYoga({ onComplete }: DeskYogaProps) {
   )
 } 
 
+

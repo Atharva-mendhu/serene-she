@@ -147,3 +147,4 @@ export function addActivityPoints(
 
   return { updatedPoints, coinsEarned }
 } 
+

@@ -204,3 +204,4 @@ export function checkBadgeEligibility(badge: Badge, stats: any): boolean {
       return false
   }
 } 
+

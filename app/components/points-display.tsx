@@ -43,3 +43,4 @@ export function PointsDisplay({ points }: PointsDisplayProps) {
     </div>
   )
 } 
+

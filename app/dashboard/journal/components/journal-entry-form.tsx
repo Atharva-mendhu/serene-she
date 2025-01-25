@@ -92,3 +92,4 @@ export function JournalEntryForm({ onSubmit }: JournalEntryFormProps) {
   )
 } 
 
+
