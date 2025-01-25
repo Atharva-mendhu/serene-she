@@ -1,0 +1,10 @@
+.git
+.env
+.env.*
+.next
+node_modules
+README.md
+*.log
+.vercel
+fix-imports.ps1
+verify-imports.ps1 

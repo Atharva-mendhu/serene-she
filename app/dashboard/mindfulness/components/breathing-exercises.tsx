@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { addActivityPoints } from "@/lib/points-system"
+import { POINTS } from "@/lib/points-system"
 import { CoinsNotification } from "@/components/coins-notification"
 import { Play, Pause, RotateCcw } from "lucide-react"
 
@@ -114,7 +114,7 @@ export function BreathingExercises({ onComplete }: BreathingExercisesProps) {
     const storedPoints = localStorage.getItem("userPoints")
     if (storedPoints) {
       const userPoints = JSON.parse(storedPoints)
-      const { updatedPoints, coinsEarned } = addActivityPoints(userPoints, "BREATHING_EXERCISE")
+      const { updatedPoints, coinsEarned } = POINTS.addActivityPoints(userPoints, "BREATHING_EXERCISE")
       localStorage.setItem("userPoints", JSON.stringify(updatedPoints))
       setShowCoinsNotification(true)
     }
