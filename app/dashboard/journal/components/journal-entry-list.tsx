@@ -62,3 +62,4 @@ export function JournalEntryList({ entries }: JournalEntryListProps) {
     </div>
   )
 } 
+

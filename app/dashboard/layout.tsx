@@ -1,3 +1,4 @@
+import { DashboardHeader } from "./components/dashboard-header"
 import { NavigationBar } from "@/components/navigation-bar"
 
 export default function DashboardLayout({
@@ -6,8 +7,10 @@ export default function DashboardLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="min-h-screen bg-background pt-16">
+    <div className="min-h-screen bg-background">
+      <DashboardHeader />
       {children}
+      <NavigationBar />
     </div>
   )
 } 

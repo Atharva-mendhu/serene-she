@@ -4,5 +4,5 @@
   "devCommand": "npm run dev",
   "installCommand": "npm install",
   "framework": "nextjs",
-  "regions": ["bom1"]
+  "outputDirectory": ".next"
 } 

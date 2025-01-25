@@ -13,17 +13,6 @@ export const INITIAL_MESSAGE: Message = {
 }
 
 export const AI_NAME = "Serena"
-export const AI_DESCRIPTION = "Your empathetic wellness companion"
-
-export const INITIAL_SYSTEM_PROMPT = `You are ${AI_NAME}, an empathetic wellness companion. 
-Provide concise, emotionally resonant responses with appropriate emojis.
-Keep responses brief but impactful.
-Be culturally sensitive to Indian context.
-Focus on practical, actionable advice.
-Use a warm, friendly tone.`
-
-export const MAX_HISTORY_LENGTH = 10
-export const MAX_TOKENS = 500
 
 export const AI_PERSONALITY = {
   name: AI_NAME,

@@ -104,3 +104,4 @@ export function MoodPattern({ entries }: MoodPatternProps) {
     </Card>
   )
 } 
+

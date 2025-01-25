@@ -44,3 +44,4 @@ export function JournalAnalytics({ entries }: JournalAnalyticsProps) {
     </div>
   )
 } 
+

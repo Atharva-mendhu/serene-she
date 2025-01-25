@@ -5,7 +5,7 @@ import { motion } from "framer-motion"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
-import { QUIZ_SECTIONS, QUIZ_QUESTIONS, calculateQuizResult, type QuizResult } from "@/app/lib/quiz-types"
+import { QUIZ_SECTIONS, QUIZ_QUESTIONS, calculateQuizResult, type QuizResult } from "@/lib/quiz-types"
 import { PentagonGraph } from "./components/pentagon-graph"
 
 export default function QuizPage() {
@@ -247,5 +247,6 @@ export default function QuizPage() {
     </div>
   )
 }
+
 
 

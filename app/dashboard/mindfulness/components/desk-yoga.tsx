@@ -4,7 +4,7 @@ import { useState } from "react"
 import { motion } from "framer-motion"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { addActivityPoints } from "@/app/lib/points-system"
+import { addActivityPoints } from "@/lib/points-system"
 import { CoinsNotification } from "@/components/coins-notification"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 
@@ -192,3 +192,4 @@ export function DeskYoga({ onComplete }: DeskYogaProps) {
     </div>
   )
 } 
+

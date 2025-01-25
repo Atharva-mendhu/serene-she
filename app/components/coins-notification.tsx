@@ -37,3 +37,4 @@ export function CoinsNotification({ amount, streak, isVisible, onHide }: CoinsNo
     </div>
   )
 } 
+

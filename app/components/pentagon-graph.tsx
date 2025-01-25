@@ -118,3 +118,4 @@ export function PentagonGraph({ scores }: PentagonGraphProps) {
     </div>
   )
 } 
+

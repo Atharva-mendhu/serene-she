@@ -102,3 +102,4 @@ export function JournalForm({ onSubmit }: JournalFormProps) {
     </div>
   )
 } 
+

@@ -45,25 +45,6 @@ export const POINTS = {
   MOOD_TRACKING: 5,
 } as const
 
-export interface PointsData {
-  totalPoints: number;
-  lastDailyReward: string | null;
-  streak: number;
-}
-
-export const INITIAL_POINTS: PointsData = {
-  totalPoints: 0,
-  lastDailyReward: null,
-  streak: 0
-};
-
-export const POINTS_REWARDS = {
-  DAILY_LOGIN: 10,
-  CHAT_INTERACTION: 5,
-  COMPLETE_CHALLENGE: 20,
-  STREAK_BONUS: 15
-};
-
 export function calculateLevel(points: number): number {
   return Math.floor(Math.sqrt(points / 100)) + 1
 }
@@ -165,15 +146,4 @@ export function addActivityPoints(
   updatedPoints.pointsToNextLevel = progress.next
 
   return { updatedPoints, coinsEarned }
-}
-
-export function calculateStreak(lastReward: string | null): number {
-  if (!lastReward) return 0;
-  
-  const lastRewardDate = new Date(lastReward);
-  const today = new Date();
-  const diffTime = Math.abs(today.getTime() - lastRewardDate.getTime());
-  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-  
-  return diffDays <= 1 ? 1 : 0;
 } 

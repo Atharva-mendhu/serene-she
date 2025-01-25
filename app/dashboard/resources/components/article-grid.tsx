@@ -171,3 +171,4 @@ export function ArticleGrid({ category, searchQuery, sortBy }: ArticleGridProps)
     </div>
   )
 } 
+

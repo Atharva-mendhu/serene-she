@@ -79,7 +79,7 @@ export default function AiSupportPage() {
                     <Sparkles className="h-6 w-6 text-primary" />
                   </div>
                   <h2 className="text-xl font-semibold">AI-Powered Support</h2>
-          <p className="text-muted-foreground">
+                  <p className="text-muted-foreground">
                     Get personalized guidance, emotional support, and practical advice tailored to your needs.
                   </p>
                   <ul className="space-y-2">
@@ -132,10 +132,10 @@ export default function AiSupportPage() {
               >
                 <X className="h-5 w-5 text-muted-foreground" />
               </button>
-        </div>
+            </div>
             <div className="h-full border rounded-lg overflow-hidden bg-card">
-          <ChatInterface />
-        </div>
+              <ChatInterface />
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

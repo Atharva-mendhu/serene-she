@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { Flame, Coins } from "lucide-react"
 import { Card } from "@/components/ui/card"
 import { CoinsNotification } from "./coins-notification"
-import { UserPoints, handleDailyLogin } from "@/app/lib/points-system"
+import { UserPoints, handleDailyLogin } from "@/lib/points-system"
 
 export function DashboardHeader() {
   const [points, setPoints] = useState<UserPoints | null>(null)
@@ -58,3 +58,4 @@ export function DashboardHeader() {
     </div>
   )
 } 
+

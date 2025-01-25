@@ -1,95 +1,61 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { Card } from "@/components/ui/card";
-import Link from "next/link";
-import {
-  MessageCircle,
-  BookOpen,
-  Brain,
-  Briefcase,
-  ClipboardList,
-  Library
-} from "lucide-react";
-import { PageTransition } from "@/components/page-transition";
-
-const features = [
-  {
-    title: "Chat with Serena",
-    description: "Get emotional support and guidance",
-    icon: MessageCircle,
-    path: "/dashboard/ai-support",
-    color: "bg-pink-500",
-    textColor: "text-pink-500",
-  },
-  {
-    title: "Journal",
-    description: "Document your thoughts and feelings",
-    icon: BookOpen,
-    path: "/dashboard/journal",
-    color: "bg-purple-500",
-    textColor: "text-purple-500",
-  },
-  {
-    title: "Mindfulness",
-    description: "Practice meditation and breathing",
-    icon: Brain,
-    path: "/dashboard/mindfulness",
-    color: "bg-blue-500",
-    textColor: "text-blue-500",
-  },
-  {
-    title: "Career Coaching",
-    description: "Get guidance for your career",
-    icon: Briefcase,
-    path: "/dashboard/career",
-    color: "bg-green-500",
-    textColor: "text-green-500",
-  },
-  {
-    title: "Wellness Quiz",
-    description: "Assess your mental wellbeing",
-    icon: ClipboardList,
-    path: "/dashboard/quiz",
-    color: "bg-yellow-500",
-    textColor: "text-yellow-500",
-  },
-  {
-    title: "Resources",
-    description: "Access helpful articles and tools",
-    icon: Library,
-    path: "/dashboard/resources",
-    color: "bg-red-500",
-    textColor: "text-red-500",
-  },
-];
+import { DashboardHeader } from "./components/dashboard-header"
+import { NavigationBar } from "@/components/navigation-bar"
+import Link from "next/link"
+import { MessageCircle, BookOpen, Brain } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
 export default function DashboardPage() {
   return (
-    <PageTransition>
-      <div className="grid gap-6 p-6">
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {features.map((feature) => (
-            <Link key={feature.path} href={feature.path}>
-              <Card className="p-6 hover:bg-muted/50 transition-colors cursor-pointer">
-                <div className="flex items-center gap-4">
-                  <div className={`p-2 rounded-lg ${feature.color}`}>
-                    <feature.icon className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="font-medium">{feature.title}</h3>
-                    <p className="text-sm text-muted-foreground">
-                      {feature.description}
-                    </p>
-                  </div>
-                </div>
-              </Card>
+    <div className="min-h-screen bg-background">
+      <main className="container mx-auto px-4 py-8">
+        <h1 className="text-4xl font-bold mb-8">Welcome to Serene She</h1>
+        
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {/* AI Chat Section */}
+          <div className="p-6 rounded-lg border bg-card">
+            <h2 className="text-2xl font-semibold mb-4">Chat with Serena</h2>
+            <p className="text-muted-foreground mb-4">
+              Share your thoughts and feelings with our empathetic AI companion.
+            </p>
+            <Link href="/dashboard/ai-support" className="inline-block">
+              <Button className="w-full">
+                <MessageCircle className="mr-2 h-4 w-4" />
+                Start Chat
+              </Button>
             </Link>
-          ))}
+          </div>
+
+          {/* Journal Section */}
+          <div className="p-6 rounded-lg border bg-card">
+            <h2 className="text-2xl font-semibold mb-4">Journal</h2>
+            <p className="text-muted-foreground mb-4">
+              Record your thoughts, track your moods, and reflect on your journey.
+            </p>
+            <Link href="/dashboard/journal" className="inline-block">
+              <Button className="w-full">
+                <BookOpen className="mr-2 h-4 w-4" />
+                Open Journal
+              </Button>
+            </Link>
+          </div>
+
+          {/* Mindfulness Section */}
+          <div className="p-6 rounded-lg border bg-card">
+            <h2 className="text-2xl font-semibold mb-4">Mindfulness</h2>
+            <p className="text-muted-foreground mb-4">
+              Practice meditation and mindfulness exercises for inner peace.
+            </p>
+            <Link href="/dashboard/mindfulness" className="inline-block">
+              <Button className="w-full">
+                <Brain className="mr-2 h-4 w-4" />
+                Start Practice
+              </Button>
+            </Link>
+          </div>
         </div>
-      </div>
-    </PageTransition>
-  );
+      </main>
+    </div>
+  )
 }
 
 

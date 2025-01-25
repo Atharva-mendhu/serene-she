@@ -89,3 +89,4 @@ export function BadgeDisplay({ badges }: BadgeDisplayProps) {
     </Dialog>
   )
 } 
+

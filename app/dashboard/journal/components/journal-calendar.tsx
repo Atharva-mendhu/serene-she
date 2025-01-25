@@ -121,3 +121,4 @@ export function JournalCalendar({ entries }: JournalCalendarProps) {
     </div>
   )
 } 
+
