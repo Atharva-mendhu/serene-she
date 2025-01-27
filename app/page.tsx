@@ -1,27 +1,30 @@
 "use client";
 
-import { motion } from "framer-motion";
-import Link from "next/link";
-import { ArrowRight, Heart, Brain, Sparkles, Shield } from "lucide-react";
+import { motion } from "framer-motion"
+import { ArrowRight, Heart, Brain, Shield, Sparkles } from "lucide-react"
+import Link from "next/link"
 
-export default function Home() {
+export default function HomePage() {
   const features = [
     {
       icon: Heart,
       title: "Mental Wellness",
       description: "Nurture your mental health with personalized support and guidance",
+      href: "/mindfulness"
     },
     {
       icon: Brain,
       title: "Career Growth",
       description: "Achieve your professional goals with expert career coaching",
+      href: "/career"
     },
     {
       icon: Shield,
       title: "Safe Space",
       description: "A supportive community where you can be yourself",
+      href: "/journal"
     },
-  ];
+  ]
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -31,7 +34,7 @@ export default function Home() {
         staggerChildren: 0.3,
       },
     },
-  };
+  }
 
   const itemVariants = {
     hidden: { y: 20, opacity: 0 },
@@ -43,10 +46,10 @@ export default function Home() {
         stiffness: 100,
       },
     },
-  };
+  }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-background/95">
+    <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 pt-32 pb-16">
         <motion.div
           initial="hidden"
@@ -85,7 +88,7 @@ export default function Home() {
 
             <motion.div variants={itemVariants} className="flex justify-center gap-4">
               <Link
-                href="/dashboard"
+                href="/journal"
                 className="group inline-flex items-center justify-center px-6 py-3 text-lg font-medium text-primary-foreground bg-primary rounded-full hover:bg-primary/90 transition-colors"
               >
                 Get Started
@@ -99,23 +102,24 @@ export default function Home() {
             variants={containerVariants}
             className="grid grid-cols-1 md:grid-cols-3 gap-8"
           >
-            {features.map((feature, index) => (
-              <motion.div
-                key={feature.title}
-                variants={itemVariants}
-                whileHover={{ scale: 1.05 }}
-                className="relative p-6 rounded-2xl bg-card border shadow-sm"
-              >
-                <div className="absolute -top-4 left-6">
-                  <div className="p-2 rounded-xl bg-primary/10">
-                    <feature.icon className="h-6 w-6 text-primary" />
+            {features.map((feature) => (
+              <Link key={feature.title} href={feature.href}>
+                <motion.div
+                  variants={itemVariants}
+                  whileHover={{ scale: 1.05 }}
+                  className="relative p-6 rounded-2xl bg-card border shadow-sm h-full"
+                >
+                  <div className="absolute -top-4 left-6">
+                    <div className="p-2 rounded-xl bg-primary/10">
+                      <feature.icon className="h-6 w-6 text-primary" />
+                    </div>
                   </div>
-                </div>
-                <div className="pt-4 space-y-2">
-                  <h3 className="font-semibold text-xl">{feature.title}</h3>
-                  <p className="text-muted-foreground">{feature.description}</p>
-                </div>
-              </motion.div>
+                  <div className="pt-4 space-y-2">
+                    <h3 className="font-semibold text-xl">{feature.title}</h3>
+                    <p className="text-muted-foreground">{feature.description}</p>
+                  </div>
+                </motion.div>
+              </Link>
             ))}
           </motion.div>
 
@@ -149,6 +153,6 @@ export default function Home() {
         </motion.div>
       </div>
     </div>
-  );
+  )
 } 
 

@@ -1,11 +1,11 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { motion } from "framer-motion"
-import { Card } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { POINTS } from "@/lib/points-system"
-import { CoinsNotification } from "@/components/coins-notification"
+import { useState, useEffect, useCallback } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { Card } from "@/app/components/ui/card"
+import { Button } from "@/app/components/ui/button"
+import { POINTS } from "@/app/lib/points-system"
+import { CoinsNotification } from "@/app/components/coins-notification"
 import { Play, Pause, RotateCcw } from "lucide-react"
 
 interface BreathingExercisesProps {

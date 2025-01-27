@@ -12,6 +12,15 @@ export interface UserPoints {
     claimedRewards: string[]
     streakBonus: number
   }
+  coins: number
+  streak: number
+  lastActive: string
+  activities: {
+    [key: string]: {
+      lastCompleted: string
+      count: number
+    }
+  }
 }
 
 export interface Achievement {
@@ -43,6 +52,87 @@ export const POINTS = {
   DESK_YOGA: 5,
   QUIZ_COMPLETION: 20,
   MOOD_TRACKING: 5,
+  addActivityPoints(currentPoints: UserPoints, activity: keyof typeof POINTS): { updatedPoints: UserPoints; coinsEarned: number } {
+    const now = new Date();
+    const today = now.toISOString().split('T')[0];
+    const points = { ...currentPoints };
+    
+    // Initialize if first time
+    if (!points.activities) {
+      points.activities = {};
+    }
+    if (!points.activities[activity]) {
+      points.activities[activity] = {
+        lastCompleted: '',
+        count: 0
+      };
+    }
+
+    let coinsEarned = POINTS[activity];
+
+    // Update activity tracking
+    const activityData = points.activities[activity];
+    if (activityData.lastCompleted !== today) {
+      activityData.lastCompleted = today;
+      activityData.count = 1;
+    } else {
+      activityData.count++;
+      // Diminishing returns for repeated activities
+      coinsEarned = Math.max(1, Math.floor(coinsEarned / activityData.count));
+    }
+
+    // Update streak
+    const lastActiveDate = points.lastActive ? new Date(points.lastActive) : null;
+    if (!lastActiveDate || now.getDate() !== lastActiveDate.getDate()) {
+      if (lastActiveDate) {
+        const daysDiff = Math.floor((now.getTime() - lastActiveDate.getTime()) / (1000 * 60 * 60 * 24));
+        if (daysDiff === 1) {
+          points.streak++;
+          // Bonus coins for streak milestones
+          if (points.streak % 7 === 0) {
+            coinsEarned += 10;
+          }
+        } else if (daysDiff > 1) {
+          points.streak = 1;
+        }
+      } else {
+        points.streak = 1;
+      }
+      points.lastActive = now.toISOString();
+    }
+
+    // Update total coins
+    points.coins = (points.coins || 0) + coinsEarned;
+
+    return {
+      updatedPoints: points,
+      coinsEarned
+    };
+  },
+
+  getStreakInfo(points: UserPoints) {
+    const now = new Date();
+    const lastActive = points.lastActive ? new Date(points.lastActive) : null;
+    
+    if (!lastActive) {
+      return {
+        isActive: false,
+        daysUntilReset: 0,
+        daysUntilReward: 7
+      };
+    }
+
+    const daysDiff = Math.floor((now.getTime() - lastActive.getTime()) / (1000 * 60 * 60 * 24));
+    const isActive = daysDiff <= 1;
+    const daysUntilReset = isActive ? 1 - daysDiff : 0;
+    const daysUntilReward = 7 - (points.streak % 7);
+
+    return {
+      isActive,
+      daysUntilReset,
+      daysUntilReward
+    };
+  }
 } as const
 
 export function calculateLevel(points: number): number {
@@ -76,7 +166,11 @@ export function initializePoints(): UserPoints {
       lastClaimDate: "",
       claimedRewards: [],
       streakBonus: 0
-    }
+    },
+    coins: 0,
+    streak: 0,
+    lastActive: "",
+    activities: {}
   }
 }
 

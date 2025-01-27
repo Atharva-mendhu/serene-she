@@ -2,10 +2,10 @@
 
 import { useState, useRef, useEffect } from "react"
 import { motion } from "framer-motion"
-import { Card } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Progress } from "@/components/ui/progress"
-import { QUIZ_SECTIONS, QUIZ_QUESTIONS, QuizProgress } from "@/lib/quiz-types"
+import { Card } from "@/app/components/ui/card"
+import { Button } from "@/app/components/ui/button"
+import { Progress } from "@/app/components/ui/progress"
+import { QUIZ_SECTIONS, QUIZ_QUESTIONS, QuizProgress } from "@/app/lib/quiz-types"
 import { PentagonGraph } from "./components/pentagon-graph"
 
 export default function QuizPage() {

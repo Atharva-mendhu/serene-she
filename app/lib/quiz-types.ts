@@ -1,183 +1,284 @@
 export interface QuizQuestion {
+  id: number;
+  section: number;
+  text: string;
+  options: {
   id: string;
-  question: string;
-  options: string[];
-  correctAnswer?: number;
-  explanation?: string;
+    text: string;
+    score: number;
+  }[];
 }
 
 export interface QuizSection {
-  id: number
-  title: string
-  description: string
-  illustration: string
+  id: number;
+  title: string;
+  description: string;
 }
 
 export const QUIZ_SECTIONS: QuizSection[] = [
   {
     id: 1,
-    title: "Stress and Work-Life Balance",
-    description: "Let's explore how you manage your work responsibilities and personal time.",
-    illustration: "/images/quiz/work-life-balance.svg"
+    title: "Work-Life Balance",
+    description: "Let's assess how well you manage your professional and personal life."
   },
   {
     id: 2,
     title: "Emotional Well-being",
-    description: "Understanding your emotional state and patterns.",
-    illustration: "/images/quiz/emotional-wellbeing.svg"
+    description: "Understanding your emotional state and stress management."
   },
   {
     id: 3,
-    title: "Cognitive and Physical Symptoms",
-    description: "Assessing how stress affects your mind and body.",
-    illustration: "/images/quiz/physical-symptoms.svg"
+    title: "Physical Health",
+    description: "Evaluating your physical health habits and their impact on your well-being."
   },
   {
     id: 4,
-    title: "Support and Coping Mechanisms",
-    description: "Evaluating your support system and stress management strategies.",
-    illustration: "/images/quiz/support-system.svg"
+    title: "Support Systems",
+    description: "Assessing your social connections and support networks."
   },
   {
     id: 5,
-    title: "Self-Perception and Career Satisfaction",
-    description: "Understanding your relationship with your career and self-confidence.",
-    illustration: "/images/quiz/career-satisfaction.svg"
+    title: "Career Growth",
+    description: "Exploring your professional development and satisfaction."
   }
-]
+];
 
 export const QUIZ_QUESTIONS: QuizQuestion[] = [
+  // Work-Life Balance Section
   {
-    id: "1",
-    question: "How often do you feel overwhelmed by your work responsibilities?",
-    options: ["Almost always", "Often", "Sometimes", "Rarely"],
-    correctAnswer: 1
+    id: 1,
+    section: 1,
+    text: "How often do you work beyond your regular hours?",
+    options: [
+      { id: "a", text: "Almost every day", score: 1 },
+      { id: "b", text: "2-3 times a week", score: 2 },
+      { id: "c", text: "Rarely", score: 3 },
+      { id: "d", text: "Never", score: 4 }
+    ]
   },
   {
-    id: "2",
-    question: "Do you feel you have adequate time to relax or engage in activities you enjoy?",
-    options: ["Never", "Rarely", "Occasionally", "Frequently"],
-    correctAnswer: 3
+    id: 2,
+    section: 1,
+    text: "Do you feel you have enough time for personal activities?",
+    options: [
+      { id: "a", text: "Never enough time", score: 1 },
+      { id: "b", text: "Occasionally have time", score: 2 },
+      { id: "c", text: "Usually have time", score: 3 },
+      { id: "d", text: "Always make time", score: 4 }
+    ]
   },
   {
-    id: "3",
-    question: "How often do you feel physically or mentally exhausted at the end of the day?",
-    options: ["Daily", "Most days", "Some days", "Rarely"],
-    correctAnswer: 2
+    id: 3,
+    section: 1,
+    text: "How often do you think about work during personal time?",
+    options: [
+      { id: "a", text: "Constantly", score: 1 },
+      { id: "b", text: "Often", score: 2 },
+      { id: "c", text: "Sometimes", score: 3 },
+      { id: "d", text: "Rarely", score: 4 }
+    ]
   },
   {
-    id: "4",
-    question: "How often do you feel guilty for spending time away from work or family commitments?",
-    options: ["Almost always", "Often", "Sometimes", "Rarely"],
-    correctAnswer: 1
+    id: 4,
+    section: 1,
+    text: "How satisfied are you with your work-life balance?",
+    options: [
+      { id: "a", text: "Very dissatisfied", score: 1 },
+      { id: "b", text: "Somewhat dissatisfied", score: 2 },
+      { id: "c", text: "Somewhat satisfied", score: 3 },
+      { id: "d", text: "Very satisfied", score: 4 }
+    ]
+  },
+
+  // Emotional Well-being Section
+  {
+    id: 5,
+    section: 2,
+    text: "How often do you feel overwhelmed by work-related stress?",
+    options: [
+      { id: "a", text: "Daily", score: 1 },
+      { id: "b", text: "Several times a week", score: 2 },
+      { id: "c", text: "Occasionally", score: 3 },
+      { id: "d", text: "Rarely", score: 4 }
+    ]
   },
   {
-    id: "5",
-    question: "How frequently do you feel anxious, nervous, or on edge?",
-    options: ["Daily", "Several times a week", "A few times a month", "Rarely"],
-    correctAnswer: 2
+    id: 6,
+    section: 2,
+    text: "How would you rate your ability to manage stress?",
+    options: [
+      { id: "a", text: "Poor", score: 1 },
+      { id: "b", text: "Fair", score: 2 },
+      { id: "c", text: "Good", score: 3 },
+      { id: "d", text: "Excellent", score: 4 }
+    ]
   },
   {
-    id: "6",
-    question: "How often do you feel sad or hopeless?",
-    options: ["Almost every day", "Several times a week", "Occasionally", "Rarely"],
-    correctAnswer: 2
+    id: 7,
+    section: 2,
+    text: "How often do you practice self-care or relaxation techniques?",
+    options: [
+      { id: "a", text: "Never", score: 1 },
+      { id: "b", text: "Rarely", score: 2 },
+      { id: "c", text: "Sometimes", score: 3 },
+      { id: "d", text: "Regularly", score: 4 }
+    ]
+  },
+
+  // Physical Health Section
+  {
+    id: 8,
+    section: 3,
+    text: "How would you rate your sleep quality?",
+    options: [
+      { id: "a", text: "Poor", score: 1 },
+      { id: "b", text: "Fair", score: 2 },
+      { id: "c", text: "Good", score: 3 },
+      { id: "d", text: "Excellent", score: 4 }
+    ]
   },
   {
-    id: "7",
-    question: "How often do you find it difficult to control your emotions (e.g., anger, sadness, or frustration)?",
-    options: ["Daily", "Often", "Occasionally", "Rarely"],
-    correctAnswer: 2
+    id: 9,
+    section: 3,
+    text: "How often do you exercise or engage in physical activity?",
+    options: [
+      { id: "a", text: "Never", score: 1 },
+      { id: "b", text: "1-2 times a week", score: 2 },
+      { id: "c", text: "3-4 times a week", score: 3 },
+      { id: "d", text: "5+ times a week", score: 4 }
+    ]
   },
   {
-    id: "8",
-    question: "Do you find it hard to focus or concentrate on tasks?",
-    options: ["Always", "Often", "Sometimes", "Rarely"],
-    correctAnswer: 2
+    id: 10,
+    section: 3,
+    text: "How would you rate your overall energy levels?",
+    options: [
+      { id: "a", text: "Very low", score: 1 },
+      { id: "b", text: "Low", score: 2 },
+      { id: "c", text: "Moderate", score: 3 },
+      { id: "d", text: "High", score: 4 }
+    ]
+  },
+
+  // Support Systems Section
+  {
+    id: 11,
+    section: 4,
+    text: "How comfortable are you discussing work challenges with colleagues?",
+    options: [
+      { id: "a", text: "Very uncomfortable", score: 1 },
+      { id: "b", text: "Somewhat uncomfortable", score: 2 },
+      { id: "c", text: "Somewhat comfortable", score: 3 },
+      { id: "d", text: "Very comfortable", score: 4 }
+    ]
   },
   {
-    id: "9",
-    question: "How often do you experience physical symptoms such as headaches, stomachaches, or muscle tension?",
-    options: ["Daily", "Often", "Occasionally", "Rarely"],
-    correctAnswer: 2
+    id: 12,
+    section: 4,
+    text: "Do you feel supported by your workplace management?",
+    options: [
+      { id: "a", text: "Not at all", score: 1 },
+      { id: "b", text: "Slightly", score: 2 },
+      { id: "c", text: "Moderately", score: 3 },
+      { id: "d", text: "Very much", score: 4 }
+    ]
   },
   {
-    id: "10",
-    question: "How is your sleep quality?",
-    options: ["Poor – I rarely feel rested", "Inconsistent – Some nights are good, others are not", "Fair – I feel rested most nights", "Excellent – I sleep well consistently"],
-    correctAnswer: 3
+    id: 13,
+    section: 4,
+    text: "How often do you connect with supportive friends or family?",
+    options: [
+      { id: "a", text: "Rarely", score: 1 },
+      { id: "b", text: "Monthly", score: 2 },
+      { id: "c", text: "Weekly", score: 3 },
+      { id: "d", text: "Daily", score: 4 }
+    ]
+  },
+
+  // Career Growth Section
+  {
+    id: 14,
+    section: 5,
+    text: "How satisfied are you with your current career progression?",
+    options: [
+      { id: "a", text: "Very dissatisfied", score: 1 },
+      { id: "b", text: "Somewhat dissatisfied", score: 2 },
+      { id: "c", text: "Somewhat satisfied", score: 3 },
+      { id: "d", text: "Very satisfied", score: 4 }
+    ]
   },
   {
-    id: "11",
-    question: "Do you have a support system (e.g., friends, family, or colleagues) you can rely on?",
-    options: ["No, I feel alone", "Yes, but I rarely reach out", "Yes, and I occasionally rely on them", "Yes, and I frequently lean on them for support"],
-    correctAnswer: 3
-  },
-  {
-    id: "12",
-    question: "How do you cope with stress?",
-    options: ["I turn to unhealthy habits (e.g., overeating, alcohol, etc.)", "I avoid or suppress my emotions", "I try to manage stress through hobbies or self-care, but it's inconsistent", "I actively practice healthy stress management techniques"],
-    correctAnswer: 4
-  },
-  {
-    id: "13",
-    question: "How often do you make time to focus on self-care or hobbies?",
-    options: ["Never", "Rarely", "Occasionally", "Frequently"],
-    correctAnswer: 3
-  },
-  {
-    id: "14",
-    question: "How satisfied are you with your career progress and current role?",
-    options: ["Very dissatisfied", "Somewhat dissatisfied", "Neutral", "Satisfied"],
-    correctAnswer: 4
-  },
-  {
-    id: "15",
-    question: "Do you feel confident in your ability to handle your responsibilities?",
-    options: ["Rarely", "Sometimes", "Most of the time", "Always"],
-    correctAnswer: 3
+    id: 15,
+    section: 5,
+    text: "Do you feel your work is meaningful and purposeful?",
+    options: [
+      { id: "a", text: "Not at all", score: 1 },
+      { id: "b", text: "Somewhat", score: 2 },
+      { id: "c", text: "Mostly", score: 3 },
+      { id: "d", text: "Definitely", score: 4 }
+    ]
   }
-]
+];
 
 export interface QuizResult {
   score: number;
-  totalQuestions: number;
-  answers: {
-    questionId: string;
-    selectedAnswer: number;
-    isCorrect: boolean;
-  }[];
-  completedAt: string;
+  message: string;
+  recommendations: string[];
 }
 
-export interface QuizProgress {
-  currentQuestionIndex: number;
-  answers: {
-    questionId: string;
-    selectedAnswer: number;
-  }[];
-  startedAt: string;
-}
+export function calculateQuizResult(answers: Record<number, string>): QuizResult {
+  // Calculate total score
+  let totalScore = 0;
+  Object.entries(answers).forEach(([questionId, answerId]) => {
+    const question = QUIZ_QUESTIONS.find(q => q.id === parseInt(questionId));
+    const option = question?.options.find(o => o.id === answerId);
+    if (option) {
+      totalScore += option.score;
+    }
+  });
 
-export function calculateQuizResult(answers: Record<string, number>): QuizResult {
-  const score = Object.entries(answers).reduce((total, [questionId, answerId]) => {
-    const question = QUIZ_QUESTIONS.find(q => q.id === questionId)
-    const option = question?.options.find(o => o === answerId.toString())
-    return total + (option ? 1 : 0)
-  }, 0)
-
-  const totalQuestions = QUIZ_QUESTIONS.length
-  const completedAt = new Date().toISOString()
-
+  // Generate result message and recommendations
+  if (totalScore >= 50) {
+    return {
+      score: totalScore,
+      message: "Excellent! You're maintaining a healthy work-life balance and managing stress effectively.",
+      recommendations: [
+        "Continue your current wellness practices",
+        "Share your successful strategies with colleagues",
+        "Consider mentoring others in workplace wellness"
+      ]
+    };
+  } else if (totalScore >= 40) {
+    return {
+      score: totalScore,
+      message: "Good job! You're on the right track with your wellness journey.",
+      recommendations: [
+        "Identify areas where you can make small improvements",
+        "Set specific wellness goals for the next month",
+        "Try incorporating new stress management techniques"
+      ]
+    };
+  } else if (totalScore >= 30) {
+    return {
+      score: totalScore,
+      message: "You're making efforts, but there's room for improvement in your wellness routine.",
+      recommendations: [
+        "Focus on establishing better work-life boundaries",
+        "Consider speaking with a wellness coach or counselor",
+        "Start a daily self-care practice"
+      ]
+    };
+  } else {
   return {
-    score,
-    totalQuestions,
-    answers: Object.entries(answers).map(([questionId, answerId]) => ({
-      questionId,
-      selectedAnswer: answerId,
-      isCorrect: QUIZ_QUESTIONS.find(q => q.id === questionId)?.correctAnswer === answerId
-    })),
-    completedAt
+      score: totalScore,
+      message: "Your well-being might need more attention. It's time to prioritize your health.",
+      recommendations: [
+        "Reach out to your HR department or supervisor for support",
+        "Schedule a consultation with a mental health professional",
+        "Begin with small, manageable changes to your daily routine",
+        "Consider taking some time off to recharge"
+      ]
+    };
   }
 } 
 
